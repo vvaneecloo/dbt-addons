@@ -7,6 +7,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "dbt-core>=1.5.0",
+        "pyyaml>=6.0",
     ],
     extras_require={
         "dev": [
@@ -15,7 +16,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "dbta=addons.cli.cli:main",
+            "dbt-addons=addons.cli.cli:main",
         ],
     },
     python_requires=">=3.8",

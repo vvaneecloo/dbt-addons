@@ -42,3 +42,8 @@ seeds:
 vars:
   dbt_staging_schema: staging
   dbt_prod_schema: prod
+
+meta:
+  dbt-addons:
+    addons:
+      - wap

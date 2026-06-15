@@ -1,8 +1,6 @@
 import json
-import shutil
 from pathlib import Path
 from typing import List
-from ..cli.logger import log
 
 def get_executed_tables() -> List[str]:
     """Extract successfully built models whose tests all passed from run_results.json."""
@@ -51,16 +49,6 @@ def get_executed_tables() -> List[str]:
 
     return sorted(promoted, key=lambda t: t["name"]), sorted(skipped)
 
-
-def install_wap_macros() -> int:
-    src = Path(__file__).parent / 'macros'
-    dest = Path('macros/dbt_addons')
-
-    if dest.exists():
-        shutil.rmtree(dest)
-    shutil.copytree(src, dest)
-    log.info(f"WAP macros installed to {dest}/")
-    return 0
 
 
 def run_with_wap(args: List[str]) -> int:

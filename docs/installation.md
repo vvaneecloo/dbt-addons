@@ -11,7 +11,7 @@ pip install dbt-wap-addon
 Run this from your dbt project root:
 
 ```bash
-dbta wap install
+dbt-addons wap install
 ```
 
 This copies the WAP macros into `macros/dbt_addons/` in your project. Re-run it after upgrading the package to get the latest macros.

@@ -5,7 +5,7 @@
 ### Install macros
 
 ```bash
-dbta wap install
+dbt-addons wap install
 ```
 
 Copies the WAP macros into `macros/dbt_addons/` in your current dbt project. Re-run after upgrading the package.
@@ -13,17 +13,17 @@ Copies the WAP macros into `macros/dbt_addons/` in your current dbt project. Re-
 ### Run with WAP
 
 ```bash
-dbta run --wap
-dbta build --wap
+dbt-addons run --wap
+dbt-addons build --wap
 ```
 
-The `--wap` flag activates the full Write-Audit-Publish flow. Without it, `dbta` behaves exactly like `dbt`.
+The `--wap` flag activates the full Write-Audit-Publish flow. Without it, `dbt-addons` behaves exactly like `dbt`.
 
 All standard dbt flags are supported:
 
 ```bash
-dbta build --wap --select stg_customers fct_customers
-dbta run --wap --target prod
+dbt-addons build --wap --select stg_customers fct_customers
+dbt-addons run --wap --target prod
 ```
 
 ## What happens
