@@ -16,7 +16,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "dbt-addons=addons.cli.cli:main",
+            "dbta=addons.cli.cli:main",
         ],
     },
     python_requires=">=3.8",

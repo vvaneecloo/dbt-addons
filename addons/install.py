@@ -33,13 +33,13 @@ def install_from_project() -> int:
         project = yaml.safe_load(f)
 
     addons: List[str] = (
-        project.get('meta', {})
+        project.get('vars', {})
                .get('dbt-addons', {})
                .get('addons', [])
     )
 
     if not addons:
-        log.warning("No addons configured under meta.dbt-addons.addons in dbt_project.yml")
+        log.warning("No addons configured under vars.dbt-addons.addons in dbt_project.yml")
         return 0
 
     log.info(f"Installing {len(addons)} addon(s): {', '.join(addons)}")

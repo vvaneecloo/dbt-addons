@@ -13,7 +13,7 @@ class _ColorFormatter(logging.Formatter):
 _handler = logging.StreamHandler()
 _handler.setFormatter(_ColorFormatter(fmt="%(asctime)s  %(message)s", datefmt="%H:%M:%S"))
 
-log = logging.getLogger("dbt-addons")
+log = logging.getLogger("dbta")
 log.setLevel(logging.INFO)
 log.addHandler(_handler)
 log.propagate = False
