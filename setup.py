@@ -7,8 +7,12 @@ setup(
     include_package_data=True,
     install_requires=[
         "dbt-core>=1.5.0",
-        "dbt-duckdb>=1.5.0",
     ],
+    extras_require={
+        "dev": [
+            "dbt-duckdb>=1.5.0",
+        ],
+    },
     entry_points={
         "console_scripts": [
             "dbta=addons.cli.cli:main",
