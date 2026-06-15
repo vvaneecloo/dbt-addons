@@ -1,0 +1,43 @@
+site_name: dbt-addons
+site_url: https://vvaneecloo.github.io/dbt-addons
+repo_url: https://github.com/vvaneecloo/dbt-addons
+repo_name: vvaneecloo/dbt-addons
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Configuration: configuration.md
+  - WAP:
+    - Concept: wap/concept.md
+    - Usage: wap/usage.md
+    - Providers: wap/providers.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
