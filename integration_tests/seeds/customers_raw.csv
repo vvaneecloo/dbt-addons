@@ -1,0 +1,10 @@
+customer_id,customer_name,email,country,created_date
+1,Alice Johnson,alice@example.com,USA,2024-01-15
+2,Bob Smith,bob@example.com,UK,2024-01-20
+3,Charlie Brown,charlie@example.com,France,2024-02-01
+4,Diana Prince,diana@example.com,Germany,2024-02-10
+5,Eve Wilson,eve@example.com,Canada,2024-02-15
+5,Eve Wilson,eve@example.com,Canada,2024-02-15
+5,Eve Wilson,eve@example.com,Canada,2024-02-15
+5,Eve Wilson,eve@example.com,Canada,2024-02-15
+5,Eve Wilson,eve@example.com,Canada,2024-02-15

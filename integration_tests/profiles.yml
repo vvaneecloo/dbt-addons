@@ -1,0 +1,13 @@
+integration_tests:
+  target: staging
+
+  outputs:
+    staging:
+      type: duckdb
+      path: dev.duckdb
+      threads: 1
+
+    prod:
+      type: duckdb
+      path: prod.duckdb
+      threads: 4

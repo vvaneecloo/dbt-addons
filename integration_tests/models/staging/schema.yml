@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: staging
+    schema: staging
+    tables:
+      - name: customers_raw
+        description: Raw customer data from seed
+        columns:
+          - name: customer_id
+            description: Unique customer identifier
+            
+          - name: email
+            description: Customer email
