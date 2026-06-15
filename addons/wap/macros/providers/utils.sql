@@ -40,11 +40,12 @@
 {% macro all_required_variables_are_setup() %}
   {% if execute %}
     {% set adapter_type = adapter.type() %}
+    {% set cfg = var('dbt-addons', {}) %}
     {% set required_vars = {} %}
 
     {% set common_vars = {
-      'dbt_staging_schema': var('dbt_staging_schema', none),
-      'dbt_prod_schema': var('dbt_prod_schema', none)
+      'dbt_staging_schema': cfg.get('dbt_staging_schema'),
+      'dbt_prod_schema': cfg.get('dbt_prod_schema')
     } %}
 
     {% if adapter_type == 'snowflake' %}
@@ -52,9 +53,9 @@
 
     {% elif adapter_type == 'bigquery' %}
       {% set required_vars = common_vars | combine({
-        'project_id': var('project_id', none),
-        'prod_dataset': var('prod_dataset', none),
-        'staging_dataset': var('staging_dataset', none)
+        'project_id': cfg.get('project_id'),
+        'prod_dataset': cfg.get('prod_dataset'),
+        'staging_dataset': cfg.get('staging_dataset')
       }) %}
 
     {% elif adapter_type == 'duckdb' %}

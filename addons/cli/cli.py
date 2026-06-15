@@ -4,7 +4,8 @@ import json
 import shutil
 from pathlib import Path
 from .logger import log
-from ..wap.wap import get_executed_tables, install_wap_macros
+from ..wap.wap import get_executed_tables
+from ..install import install_from_project, install_addon
 
 def get_real_dbt_path():
     dbt_path = shutil.which('dbt')
@@ -37,8 +38,11 @@ def main():
     real_dbt = get_real_dbt_path()
     args = sys.argv[1:]
 
+    if args[:1] == ['install']:
+        return install_from_project()
+
     if args[:2] == ['wap', 'install']:
-        return install_wap_macros()
+        return install_addon('wap')
 
     if '--wap' not in args:
         return subprocess.run([real_dbt] + args).returncode

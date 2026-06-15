@@ -24,8 +24,8 @@ jobs:
         working-directory: .
         run: pip install -e ".[dev]"
 
-      - name: Install WAP macros
-        run: dbta wap install
+      - name: Install addons
+        run: dbta install
 
       - name: Seed
         run: dbt seed --profiles-dir .

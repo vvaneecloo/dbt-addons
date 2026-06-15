@@ -7,6 +7,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "dbt-core>=1.5.0",
+        "pyyaml>=6.0",
     ],
     extras_require={
         "dev": [

@@ -1,6 +1,6 @@
 {% macro wap_deploy_databricks(tables_to_copy, skipped_tables=[]) %}
-    {% set catalog = var('catalog') %}
-    {% set prod_schema = var('dbt_prod_schema') %}
+    {% set catalog = var('dbt-addons')['catalog'] %}
+    {% set prod_schema = var('dbt-addons')['dbt_prod_schema'] %}
 
     {% set queries = [] %}
     {% for item in tables_to_copy %}
