@@ -4,7 +4,7 @@ import json
 import shutil
 from pathlib import Path
 from .logger import log
-from ..wap.wap import get_executed_tables
+from ..wap.wap import get_executed_tables, read_wap_config
 from ..install import install_from_project, install_addon
 
 def get_real_dbt_path():
@@ -34,6 +34,23 @@ def get_real_dbt_path():
     return dbt_path
 
 
+def _merge_wap_vars(args: list, extra: dict) -> list:
+    """Inject extra vars into dbt args, merging with any existing --vars."""
+    import yaml
+    args = list(args)
+    if '--vars' in args:
+        idx = args.index('--vars')
+        try:
+            existing = yaml.safe_load(args[idx + 1]) or {}
+        except Exception:
+            existing = {}
+        existing.update(extra)
+        args[idx + 1] = json.dumps(existing)
+    else:
+        args += ['--vars', json.dumps(extra)]
+    return args
+
+
 def main():
     real_dbt = get_real_dbt_path()
     args = sys.argv[1:]
@@ -54,8 +71,14 @@ def main():
         log.error("--wap only works with 'run' or 'build'")
         return 1
 
-    log.info(f"Running dbt {' '.join([dbt_command] + args[1:])}...")
-    result = subprocess.run([real_dbt, dbt_command] + args[1:])
+    dbt_args = list(args[1:])
+    wap_config = read_wap_config()
+    suffix = wap_config.get('wap_staging_suffix')
+    if suffix:
+        dbt_args = _merge_wap_vars(dbt_args, {'dbt_wap_staging_suffix': suffix})
+
+    log.info(f"Running dbt {' '.join([dbt_command] + dbt_args)}...")
+    result = subprocess.run([real_dbt, dbt_command] + dbt_args)
     log.info("")
 
     tables_to_copy, skipped = get_executed_tables()
