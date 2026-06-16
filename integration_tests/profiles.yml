@@ -1,11 +1,12 @@
 integration_tests:
-  target: staging
+  target: dev
 
   outputs:
-    staging:
+    dev:
       type: duckdb
       path: dev.duckdb
       threads: 1
+      schema: staging
 
     prod:
       type: duckdb
