@@ -3,8 +3,14 @@ from setuptools import setup, find_packages
 setup(
     name="dbt-wap-addon",
     version="0.1.0",
-    packages=find_packages(),  # This finds all packages with __init__.py
-    include_package_data=True,
+    packages=find_packages(),
+    package_data={
+        "addons": [
+            "wap/macros/**/*.sql",
+            "wap/macros/*.sql",
+            "wap/root_macros/*.sql",
+        ],
+    },
     install_requires=[
         "dbt-core>=1.5.0",
         "pyyaml>=6.0",
