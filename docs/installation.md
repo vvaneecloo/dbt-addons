@@ -3,25 +3,11 @@
 ## 1. Install the package
 
 ```bash
-pip install dbt-wap-addon
+pip install dbt-addons
 ```
 
-## 2. Install the WAP macros into your dbt project
+Last version: 0.0.2
 
-Run this from your dbt project root:
+## 2. See the features you want to use and install them when needed
 
-```bash
-dbta wap install
-```
-
-This copies the WAP macros into `macros/dbt_addons/` in your project. Re-run it after upgrading the package to get the latest macros.
-
-## 3. Add the required variables to `dbt_project.yml`
-
-```yaml
-vars:
-  dbt_staging_schema: staging
-  dbt_prod_schema: prod
-```
-
-See [Configuration](configuration.md) for the full list of variables per adapter.
+- [WAP](wap/concept.md): introduce blue/green deployments in your dbt pipelines.
