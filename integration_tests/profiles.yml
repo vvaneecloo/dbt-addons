@@ -1,6 +1,5 @@
 integration_tests:
   target: dev
-
   outputs:
     dev:
       type: duckdb
