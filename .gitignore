@@ -1,0 +1,8 @@
+dbt_addons.egg-info
+integration_tests/macros/*
+integration_tests/logs
+integration_tests/target
+integration_tests/dev.duckdb
+integration_tests/.user.yml
+build/*
+.python-version

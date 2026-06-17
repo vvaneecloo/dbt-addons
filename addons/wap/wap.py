@@ -28,8 +28,8 @@ def _matches_wap_paths(model_path: str, wap_paths: List[str]) -> bool:
     return False
 
 
-def get_executed_tables() -> List[str]:
-    """Extract successfully built models whose tests all passed from run_results.json."""
+def get_executed_tables() -> tuple[List[dict], List[str]]:
+    """Extract successfully built models (tables, incremental only) whose tests passed."""
     run_results_path = Path('target/run_results.json')
     manifest_path = Path('target/manifest.json')
 
@@ -39,52 +39,57 @@ def get_executed_tables() -> List[str]:
     with open(run_results_path) as f:
         run_results = json.load(f)
 
-    results = run_results.get('results', [])
-
     manifest = {}
     if manifest_path.exists():
         with open(manifest_path) as f:
             manifest = json.load(f)
 
+    results = run_results.get('results', [])
     wap_config = read_wap_config()
-    wap_paths: Optional[List[str]] = wap_config.get('wap_paths')  # None = all models
+    wap_paths: Optional[List[str]] = wap_config.get('wap_paths')
 
-    # Find models blocked by a failing test via manifest dependency graph
-    failed_model_ids: set = set()
+    # Identify models blocked by failures
+    failed_model_ids = set()
     for result in results:
-        if result.get('status') not in ('fail', 'error'):
-            continue
-        uid = result.get('unique_id', '')
-        if not uid.startswith('test.'):
-            continue
-        test_node = manifest.get('nodes', {}).get(uid, {})
-        for dep in test_node.get('depends_on', {}).get('nodes', []):
-            if dep.startswith('model.'):
-                failed_model_ids.add(dep)
+        if result.get('status') in ('fail', 'error'):
+            uid = result.get('unique_id', '')
+            if uid.startswith('test.'):
+                test_node = manifest.get('nodes', {}).get(uid, {})
+                for dep in test_node.get('depends_on', {}).get('nodes', []):
+                    if dep.startswith('model.'):
+                        failed_model_ids.add(dep)
 
     promoted = []
     skipped = []
+
     for result in results:
         if result.get('status') != 'success':
             continue
+        
         uid = result.get('unique_id', '')
         if not uid.startswith('model.'):
             continue
 
         node = manifest.get('nodes', {}).get(uid, {})
+        
+        # Filter: Only promote physical tables or incremental models
+        materialized = node.get('config', {}).get('materialized')
+        if materialized not in ('table', 'incremental'):
+            continue
 
+        # Filter by WAP paths
         if wap_paths is not None:
-            model_path = node.get('path', '')
-            if not _matches_wap_paths(model_path, wap_paths):
+            if not _matches_wap_paths(node.get('path', ''), wap_paths):
                 continue
 
         table_name = uid.split('.')[-1]
+        
         if uid in failed_model_ids:
             skipped.append(table_name)
-            continue
-        relation_name = result.get('relation_name')
-        if relation_name:
-            promoted.append({"name": table_name, "relation": relation_name})
+        else:
+            relation_name = result.get('relation_name')
+            if relation_name:
+                promoted.append({"name": table_name, "relation": relation_name})
 
     return sorted(promoted, key=lambda t: t["name"]), sorted(skipped)
 
