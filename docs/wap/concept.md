@@ -7,36 +7,34 @@ When dbt rebuilds a model, it replaces the table in-place. If the run fails half
 
 ## Write-Audit-Publish
 
-WAP solves this by separating the build schema from the production schema:
+WAP solves this by separating the build schema from the production (or exposition) schema:
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                    staging schema                    │
-│                                                      │
+│                    staging schema                   │
+│                                                     │
 │   dbt run/build → models materialized here first    │
-│   dbt tests    → run against staging                │
+│   dbt tests     → run against staging               │
 └──────────────────────┬──────────────────────────────┘
                        │ tests pass
                        ▼
 ┌─────────────────────────────────────────────────────┐
-│                     prod schema                      │
-│                                                      │
+│                     prod schema                     │
+│                                                     │
 │   wap_deploy → atomic clone/copy from staging       │
 │   consumers  → always see last known-good state     │
 └─────────────────────────────────────────────────────┘
 ```
 
-If any test fails, the publish step is skipped for that model. Production is never touched.
+If any test fails, the publish step is skipped for that model. Production is never touched, which means no bad data are discovered by users.
 
 
 ## Per-model granularity
 
-WAP operates at the model level. If `stg_customers` passes all its tests but `fct_customers` fails, only `stg_customers` is promoted. The CLI reports which models were promoted and which were skipped:
+WAP operates at the model level.
 
-```
-1 of 2 START copying stg_customers .................................. [RUN]
-1 of 2 OK stg_customers ............................................. [OK]
-2 of 2 FAIL fct_customers ........................................... [FAIL]
+For instance, if `stg_customers` passes all its tests but `fct_customers` fails, only `stg_customers` is promoted.
 
-[ PARTIAL ] PASS=1 FAIL=1 TOTAL=2
-```
+The CLI reports which models were promoted and which were skipped. For instance:
+
+![Example](image.png)

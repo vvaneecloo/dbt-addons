@@ -45,5 +45,5 @@ dbta run --wap --target prod
 14:01:05  1 of 2 OK stg_customers ................................... [OK]
 14:01:05  2 of 2 FAIL fct_customers ................................. [FAIL]
 
-14:01:05  [ PARTIAL ] PASS=1 FAIL=1 TOTAL=2
+14:01:05  [PARTIAL] PASS=1 FAIL=1 TOTAL=2
 ```
