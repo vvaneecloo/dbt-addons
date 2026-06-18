@@ -5,8 +5,8 @@
     {% set queries = [] %}
     {% for item in tables_to_copy %}
         {% set q %}
-            CREATE OR REPLACE TABLE `{{ project_id }}.{{ prod_dataset }}.{{ item.name }}` AS
-            SELECT * FROM {{ item.relation }}
+            CREATE OR REPLACE TABLE `{{ project_id }}.{{ prod_dataset }}.{{ item.name }}`
+            CLONE {{ item.relation }}
         {% endset %}
         {% do queries.append(q) %}
     {% endfor %}

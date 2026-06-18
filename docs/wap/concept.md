@@ -5,7 +5,7 @@
 
 When dbt rebuilds a model, it replaces the table in-place. If the run fails halfway through, or if a data quality test catches an issue after the fact, bad data has already reached production.
 
-## Write-Audit-Publish
+## The solution: Write-Audit-Publish (WAP)
 
 WAP solves this by separating the build schema from the production (or exposition) schema:
 
