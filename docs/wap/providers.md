@@ -6,7 +6,7 @@
 |---|---|---|
 | Snowflake | `CLONE` | Yes — zero-copy |
 | Databricks | `SHALLOW CLONE` | Yes — zero-copy (Delta Lake) |
-| BigQuery | `CREATE OR REPLACE TABLE AS SELECT *` | No — full copy |
+| BigQuery | `CLONE` | Yes — zero-copy |
 | DuckDB | `CREATE OR REPLACE TABLE AS SELECT *` | No — full copy |
 
 ## Snowflake
@@ -31,7 +31,7 @@ Requires the `catalog` variable to be set in `dbt_project.yml`.
 
 ## BigQuery
 
-No native zero-copy cloning at table level. WAP falls back to a full `CREATE OR REPLACE TABLE AS SELECT *`. The publish step copies data.
+Use zero-copy cloning at table level via `CREATE OR REPLACE TABLE ... CLONE {{ item.relation }}`.
 
 Requires `project_id` and `prod_dataset` variables.
 
