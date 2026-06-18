@@ -8,16 +8,6 @@ A model runs, lands directly in its production location, and only afterwards do 
 
 `dbt-addons` flips that order for the cases where it matters: build into a staging location, audit it, and only publish to production if the audit passes.
 
-```bash
-pip install dbt-addons
-```
-
-```yaml
-# packages.yml
-packages:
-  - git: "https://github.com/vvaneecloo/dbt-addons"
-```
-
 ---
 
 ## Why WAP, and why it's harder than it sounds in dbt
