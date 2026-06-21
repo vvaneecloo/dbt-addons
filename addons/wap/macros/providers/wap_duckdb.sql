@@ -1,5 +1,5 @@
 {% macro wap_deploy_duckdb(tables_to_copy, skipped_tables=[]) %}
-    {% set prod_schema = var('dbt-addons')['dbt_prod_schema'] %}
+    {% set prod_schema = var('dbt_wap_prod_schema') %}
 
     {% do run_query("CREATE SCHEMA IF NOT EXISTS " ~ prod_schema) %}
     {% do log("", info=true) %}

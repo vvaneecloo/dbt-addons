@@ -39,48 +39,12 @@
 
 {% macro all_required_variables_are_setup() %}
   {% if execute %}
-    {% set adapter_type = adapter.type() %}
-    {% set cfg = var('dbt-addons', {}) %}
-    {% set required_vars = {} %}
-
-    {% set common_vars = {
-      'dbt_staging_schema': cfg.get('dbt_staging_schema'),
-      'dbt_prod_schema': cfg.get('dbt_prod_schema')
-    } %}
-
-    {% if adapter_type == 'snowflake' %}
-      {% set required_vars = common_vars %}
-
-    {% elif adapter_type == 'bigquery' %}
-      {% set required_vars = common_vars | combine({
-        'project_id': cfg.get('project_id'),
-        'prod_dataset': cfg.get('prod_dataset'),
-        'staging_dataset': cfg.get('staging_dataset')
-      }) %}
-
-    {% elif adapter_type == 'duckdb' %}
-      {% set required_vars = common_vars %}
-
+    {% set prod_schema = var('dbt_wap_prod_schema', none) %}
+    {% if prod_schema is none %}
+      {% do exceptions.raise_compiler_error("WAP: prod_target is not set in vars.dbt-addons or its schema could not be found in profiles.yml") %}
     {% else %}
-      {% do log("Unknown adapter: " ~ adapter_type, info=true) %}
-      {% set required_vars = common_vars %}
-    {% endif %}
-
-    {% set missing_vars = [] %}
-    {% for var_name, var_value in required_vars.items() %}
-      {% if var_value is none %}
-        {% do missing_vars.append(var_name) %}
-      {% endif %}
-    {% endfor %}
-
-    {% if missing_vars | length > 0 %}
-      {% do log("[" ~ adapter_type ~ "] Missing required variables: " ~ missing_vars | join(', '), info=true) %}
-      {% do exceptions.raise_compiler_error("Setup incomplete for " ~ adapter_type ~ ". Define: " ~ missing_vars | join(', ')) %}
-    {% else %}
-      {% do log("[" ~ adapter_type ~ "] All required variables configured", info=true) %}
-      {% for var_name, var_value in required_vars.items() %}
-        {% do log("   • " ~ var_name ~ ": " ~ var_value, info=true) %}
-      {% endfor %}
+      {% do log("[WAP] staging schema (target.schema): " ~ target.schema, info=true) %}
+      {% do log("[WAP] prod schema (prod_target):       " ~ prod_schema, info=true) %}
     {% endif %}
   {% endif %}
 {% endmacro %}
