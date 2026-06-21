@@ -42,5 +42,6 @@ seeds:
 vars:
   dbt-addons:
     wap_staging_suffix: __staging
+    prod_target: dev
     addons:
       - wap
