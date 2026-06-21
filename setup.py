@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dbt-addons",
-    version="0.0.2",
+    version="0.0.5",
     packages=find_packages(),
     package_data={
         "addons": [
