@@ -2,9 +2,15 @@
 
 ## 2 ways of installing this addon
 
-1. You want WAP logic in the same environment (`exposition` for instance)
+1. You want WAP logic in the same environment/dataset (`exposition` for instance):
+  - dbta build objects in `exposition` with a suffix (for instance `__audit`) e.g. `exposition.fct_customers__audit`
+  - then dbta zero copy clone them without suffix e.g. `exposition.fct_customers`
+  - your business users only point to the no-audit table e.g. `exposition.fct_customers`
 
-2. You want WAP logic in 2 separate environments (`staging` & `exposition` for instance)
+2. You want WAP logic in 2 separate environments (`audit` & `exposition` for instance)
+  - dbta build objects in `audit` **without a suffix** e.g. `audit.fct_customers`
+  - then dbta zero copy clone them on your exposition environment e.g. `exposition.fct_customers`
+  - your business users only point to the exposition table e.g. `exposition.fct_customers`
 
 ## You want WAP logic in the same environment
 
@@ -14,6 +20,7 @@
 vars:
   dbt-addons:
     wap_staging_suffix: __staging # the suffix your audit table will use
+    prod_target: prod # the prod target you need dbta to work on (avoid running wap in dev / preprod / ci)
     addons:
       - wap
 ```
@@ -27,8 +34,9 @@ vars:
 ```yaml
 vars:
   dbt-addons:
-    dbt_staging_schema: staging
-    dbt_prod_schema: prod
+    # when you run in prod, dbta will automatically run in `audit` env first and then clone in `prod`
+    prod_target: prod
+    audit_target: audit
     addons:
       - wap
 ```

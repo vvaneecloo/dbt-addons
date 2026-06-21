@@ -23,6 +23,7 @@ All standard dbt flags are supported:
 
 ```bash
 dbta build --wap --select stg_customers fct_customers
+dbta build --wap -s stg_customers fct_customers
 dbta run --wap --target prod
 ```
 

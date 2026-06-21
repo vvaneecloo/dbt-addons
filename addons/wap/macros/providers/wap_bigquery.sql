@@ -1,6 +1,6 @@
 {% macro wap_deploy_bigquery(tables_to_copy, skipped_tables=[]) %}
-    {% set project_id = var('dbt-addons')['project_id'] %}
-    {% set prod_dataset = var('dbt-addons')['prod_dataset'] %}
+    {% set project_id = target.database %}
+    {% set prod_dataset = var('dbt_wap_prod_schema') %}
 
     {% set queries = [] %}
     {% for item in tables_to_copy %}
