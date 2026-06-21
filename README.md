@@ -8,7 +8,7 @@ A small, focused dbt wrapper that handles the boring-but-critical stuff dbt does
 
 ## Quickstart
 
-📄 Check out our documentation website: [documentation](https://vvaneecloo.github.io/dbt-addons/).
+> [📄 Check out our documentation website](https://vvaneecloo.github.io/dbt-addons/).
 
 
 ## Requirements
