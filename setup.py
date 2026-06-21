@@ -5,7 +5,7 @@ long_description = (Path(__file__).parent / "README.md").read_text(encoding="utf
 
 setup(
     name="dbt-addons",
-    version="0.0.5",
+    version="0.0.6",
     description="Write-Audit-Publish and other missing dbt patterns",
     long_description=long_description,
     long_description_content_type="text/markdown",
