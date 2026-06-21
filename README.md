@@ -3,7 +3,7 @@
 A small, focused dbt wrapper that handles the boring-but-critical stuff dbt doesn't do for you out of the box:
 
 - ✅ **WAP**: write-audit-publish macros for safe, blue-green deployments
-- 🚧 More addons may follow as real gaps come up: this repo isn't trying to be a do-everything toolkit, just a place for genuinely useful dbt patterns that don't exist elsewhere yet.
+- 🚧 More addons may follow as real gaps come up
 
 
 ## Quickstart
