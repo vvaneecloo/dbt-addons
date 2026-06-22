@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/installation/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/wap/concept/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/wap/installation/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/wap/providers/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+    <url>
+         <loc>https://vvaneecloo.github.io/dbt-addons/wap/usage/</loc>
+         <lastmod>2026-06-22</lastmod>
+    </url>
+</urlset>
