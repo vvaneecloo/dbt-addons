@@ -1,4 +1,5 @@
-# dbt-addons
+<img width="2690" height="638" alt="dbt+addons" src="https://github.com/user-attachments/assets/69c1b1d6-039f-44a0-bd0b-747d89968d0d" />
+
 
 A small, focused dbt wrapper that handles the boring-but-critical stuff dbt doesn't do for you out of the box:
 
